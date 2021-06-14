@@ -1,6 +1,6 @@
 [target.thumbv7em-none-eabihf]
 runner = 'arm-none-eabi-gdb'
-rustflags = ["-C", "link-arg=-Tlink.x"]
+rustflags = ["-C", "link-arg=-Teadk/eadk.ld"]
 
 [build]
 target = "thumbv7em-none-eabihf"

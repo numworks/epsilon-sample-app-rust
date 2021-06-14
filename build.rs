@@ -3,16 +3,14 @@ use cc::Build;
 
 
 fn main() {
-
-    Build::new().file("src/svc.s").compile("asm"); // <- NEW!
-
-    // rebuild if `asm.s` changed
-    println!("cargo:rerun-if-changed=src/svc.s"); // <- NEW!
-    
-
-
-
-
+    Build::new().file("eadk/eadk.s").compile("asm");
+    /*
+    let output = Command::new("python3")
+        .args(&["rev-parse", "--short", "HEAD"])
+        .output();
+        */
+    println!("cargo:rerun-if-changed=eadk/eadk.s");
+/*
     let output = Command::new("git")
         .args(&["rev-parse", "--short", "HEAD"])
         .output();
@@ -33,4 +31,5 @@ fn main() {
         Err(_) => String::from(""),
     };
     println!("cargo:rustc-env=GIT_COMMIT_DATE={}", date);
+    */
 }

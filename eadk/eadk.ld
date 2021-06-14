@@ -6,12 +6,12 @@ SECTIONS {
   .app_info ORIGIN(FLASH) : {
     _app_start = .;
     LONG(0xDEC0BEBA);
-    //KEEP(*(.app_info))
     LONG(0); // API level 0
-    LONG(app_name);
+    LONG(app_name); // There is an "app_name" symbol that points to a C-string
     LONG(_app_icon_end - _app_icon_start);
     LONG(_app_icon_start);
-    LONG(app_main & 0xFFFFFFFE);
+    LONG(main & 0xFFFFFFFE); // This address shall be odd to indicate a Thumb jump
+// FIXME: Remove & 0xFFFFFFFE
     LONG(_app_end - _app_start);
     LONG(0xDEC0BEBA);
   } >FLASH
