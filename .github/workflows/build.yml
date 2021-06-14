@@ -1,0 +1,18 @@
+name: Build
+on: [pull_request, push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install latest nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: thumbv7em-none-eabihf
+      - uses: numworks/setup-arm-toolchain@2020-q2
+      - name: Run cargo build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
