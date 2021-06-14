@@ -1,15 +1,3 @@
-// This is a simple macro named `say_hello`.
-#[macro_export]
-macro_rules! eadk_app_name {
-    // `()` indicates that the macro takes no argument.
-    ($app_name:expr) => {
-        //pub static app_name: *const u8 = $app_name.as_ptr();//str = *$app_name;
-        const foo: &[u8] = $app_name.as_bytes();
-        #[no_mangle]
-        pub static app_name: [u8;3] = [foo[0], foo[1], 0];
-    };
-}
-
 #[repr(C)]
 pub struct Color {
     pub rgb565: u16
