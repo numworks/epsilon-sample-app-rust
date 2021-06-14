@@ -5,13 +5,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install latest nightly
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           target: thumbv7em-none-eabihf
-      - uses: numworks/setup-arm-toolchain@2020-q2
+      - name: Install arm-none-aeabi toolchain
+        uses: numworks/setup-arm-toolchain@2020-q2
+      - name: Install build-time Python dependencies
+        run: pip3 install pypng
       - name: Run cargo build
         uses: actions-rs/cargo@v1
         with:
