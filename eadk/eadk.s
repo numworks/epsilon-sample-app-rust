@@ -20,13 +20,13 @@ FIXME: What does this do??
 .syntax unified
 .global eadk_backlight_brightness
 eadk_backlight_brightness:
-  svc #4
+  svc #1
   bx lr
 
 .global eadk_backlight_set_brightness
 eadk_backlight_set_brightness:
   push {r4, lr}
-  svc #1
+  svc #2
   mov r4, r0
   uxtb r0, r4
   pop {r4, pc}
@@ -36,13 +36,13 @@ eadk_display_push_rect_uniform:
   sub sp, sp, #8
   add r3, sp, #8
   stmdb r3, {r0, r1}
-  svc #22
+  svc #18
   add sp, sp, #8
   bx lr
 
 .global eadk_random
 eadk_random:
   push {r4, lr}
-  svc #48
+  svc #43
   mov r4, r0
   pop {r4, pc}
