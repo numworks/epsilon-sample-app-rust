@@ -2,11 +2,20 @@
 
 [![Build](https://github.com/numworks/epsilon-sample-app-rust/actions/workflows/build.yml/badge.svg)](https://github.com/numworks/epsilon-sample-app-rust/actions/workflows/build.yml)
 
-This is a sample [Rust](https://www.rust-lang.org) app to use on a [NumWorks graphing calculator](https://www.numworks.com). Yes, you can now use Rust to write embedded code that will run on a graphing calculator!
+<img src="/doc/screenshots.gif?raw=true" alt="Sample Rust app for the NumWorks graphing calculator" width="300" align="right">
 
-<p align="center">
-  <img src="/doc/screenshots.gif?raw=true" alt="Alt text" width="300">
-</p>
+This is a sample [Rust](https://www.rust-lang.org) app to use on a [NumWorks calculator](https://www.numworks.com). Yes, you can now use Rust to write code for a graphing calculator!
+
+```rust
+fn eadk_main() {
+    for _ in 0..100 {
+        let c = eadk::Color { rgb565: random_u16() };
+        let r = eadk::Rect { x: random_coordinate(), y: random_coordinate(), width: random_coordinate(), height: random_coordinate() };
+        eadk::display::push_rect_uniform(r, c);
+    }
+    loop {}
+}
+```
 
 ## Build the app
 
