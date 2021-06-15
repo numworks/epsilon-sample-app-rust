@@ -3,7 +3,6 @@ import argparse
 import lz4.block
 import os.path
 import png
-import stringcase
 
 def alpha_blending(intensity, alpha):
   intensity_double = intensity / 255.0
@@ -24,9 +23,6 @@ def generate_linker_script(png_file, linker_script_file_name):
   png_file = os.path.basename(png_file)
   # Remove path extension
   png_file = os.path.splitext(png_file)[0]
-  png_name_snake_case = stringcase.snakecase(png_file)
-  png_name_upper_snake_case = stringcase.uppercase(png_name_snake_case)
-  png_name_upper_camel_case = stringcase.camelcase(png_file)
 
   # Convert RGBA888 to RGB565
   dataRGB565 = []
