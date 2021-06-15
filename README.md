@@ -4,12 +4,16 @@
 
 This is a sample [Rust](https://www.rust-lang.org) app to use on a [NumWorks graphing calculator](https://www.numworks.com). Yes, you can now use Rust to write embedded code that will run on a graphing calculator!
 
+<p align="center">
+  <img src="/doc/screenshots.gif?raw=true" alt="Alt text" width="300">
+</p>
+
 ## Build the app
 
 You need to install an embedded ARM toolchain as well as the corresponding rust target and a couple Python modules.
 
 ```shell
-brew install rustup brew install numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
+brew install rustup numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
 rustup target add thumbv7em-none-eabihf
 pip3 install lz4 pypng
 cargo build
@@ -31,15 +35,15 @@ The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a ta
 
 Epsilon expects app to follow a certain layout. Namely, they should start with the following header:
 
-|Offset|Size|Value|Description|
-|-|-|-|-|
+|Offset| Size | Value      | Description                  |
+|------|------|------------|------------------------------|
 | 0x00 | 0x04 | 0xDEC0BEBA | Magic start-of-header marker |
 | 0x04 | 0x04 | 0x00000000 | API Level |
-| 0x08 | 0x04 | - | Offset from start of the app to a NULL-terminated NFKD UTF-8 string containing the app name |
-| 0x0C | 0x04 | - | Size of the icon data |
-| 0x10 | 0x04 | - | Offset from start of the app to the actual icon data. This data should be the result of LZ4-compressing a sequence of 55x56 RGB565 pixels |
-| 0x14 | 0x04 | - | Offset from start of the app to the entry point. This offset should be odd to indicate a Thumb entry point. |
-| 0x18 | 0x04 | - | Size of the entire app |
+| 0x08 | 0x04 | -          | Offset from start of the app to a NULL-terminated NFKD UTF-8 string containing the app name |
+| 0x0C | 0x04 | -          | Size of the icon data |
+| 0x10 | 0x04 | -          | Offset from start of the app to the actual icon data. This data should be the result of LZ4-compressing a sequence of 55x56 RGB565 pixels |
+| 0x14 | 0x04 | -          | Offset from start of the app to the entry point. This offset should be odd to indicate a Thumb entry point. |
+| 0x18 | 0x04 | -          | Size of the entire app |
 | 0x00 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
 Generating the appropriate header format is taken care of by a [linker script](/eadk/eadk.ld).
@@ -51,3 +55,7 @@ Due to the lightweight nature of this OS, the Rust app has to be `no_std`. The i
 ## License
 
 This sample app is distributed under the terms of the BSD License. See LICENSE for details.
+
+## Trademarks
+
+NumWorks and Rust are a registered trademarks.
