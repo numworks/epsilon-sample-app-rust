@@ -39,3 +39,10 @@ eadk_display_push_rect_uniform:
   svc #22
   add sp, sp, #8
   bx lr
+
+.global eadk_random
+eadk_random:
+  push {r4, lr}
+  svc #48
+  mov r4, r0
+  pop {r4, pc}

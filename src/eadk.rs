@@ -48,6 +48,16 @@ pub mod display {
     }
 }
 
+pub fn random() -> u32 {
+    unsafe {
+        return eadk_random()
+    }
+}
+
+extern "C" {
+    fn eadk_random() -> u32;
+}
+
 use core::panic::PanicInfo;
 
 #[panic_handler]
