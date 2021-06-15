@@ -45,8 +45,6 @@ def generate_linker_script(png_file, linker_script_file_name):
   linker_script.close()
 
 parser = argparse.ArgumentParser(description="Extract data from png, inline them in linker script as LZ4-compressed RGB565 data.")
-#parser.add_argument('--png', metavar='PNG_FILE', help='Input PNG file')
-#parser.add_argument('--script', metavar='LINKER_SCRIPT_FILE', help='Output linker script')
 parser.add_argument('png', metavar='icon.png', help='input PNG file')
 parser.add_argument('ld', metavar='script.ld', help='output linker script')
 
