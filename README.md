@@ -40,7 +40,9 @@ cargo run
 
 ## Notes
 
-The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made embedded operating system. Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
+The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com.
+
+Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
 
 |Offset| Size | Value      | Description                  |
 |------|------|------------|------------------------------|
@@ -53,11 +55,11 @@ The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a ta
 | 0x18 | 0x04 | -          | Size of the entire app |
 | 0x00 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
-Generating the appropriate header format is taken care of by a [linker script](/eadk/eadk.ld).
+Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `cargo build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` in your calculator's Flash memory. The included [run.py](/easdk/run.py) script will take care of this for you when you'll call `cargo run`.
 
-Epsilon will look for apps at addresss `0x90350000`, so this is where the [run.py](/easdk/run.py) will write this sample app.
+Due to the embedded nature of Epsilon, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
-Due to the lightweight nature of this OS, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of the OS](http://github.com/numworks/epsilon) itself if you want to get a "behind the scenes" look.
+Please note that any custom app is removed when resetting the calculator.
 
 ## License
 
