@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import argparse
 import lz4.block
-import os.path
 import png
 
 def alpha_blending(intensity, alpha):
