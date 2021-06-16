@@ -40,9 +40,7 @@ cargo run
 
 ## Notes
 
-The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made embedded operating system.
-
-Epsilon expects app to follow a certain layout. Namely, they should start with the following header:
+The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made embedded operating system. Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
 
 |Offset| Size | Value      | Description                  |
 |------|------|------------|------------------------------|
@@ -59,7 +57,7 @@ Generating the appropriate header format is taken care of by a [linker script](/
 
 Epsilon will look for apps at addresss `0x90350000`, so this is where the [run.py](/easdk/run.py) will write this sample app.
 
-Due to the lightweight nature of this OS, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the code of the OS itself if you want to get a "behind the scene" look.
+Due to the lightweight nature of this OS, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of the OS](http://github.com/numworks/epsilon) itself if you want to get a "behind the scenes" look.
 
 ## License
 
