@@ -46,9 +46,42 @@ pub mod display {
         }
     }
 
+    pub fn wait_for_vblank() {
+        unsafe {
+            eadk_display_wait_for_vblank();
+        }
+    }
+
     extern "C" {
         fn eadk_display_push_rect_uniform(rect: Rect, color: Color);
         fn eadk_display_push_rect(rect: Rect, color: *const Color);
+        fn eadk_display_wait_for_vblank();
+    }
+}
+
+pub mod timing {
+    pub fn usleep(us: u32) {
+        unsafe {
+            eadk_timing_usleep(us);
+        }
+    }
+
+    pub fn msleep(ms: u32) {
+        unsafe {
+            eadk_timing_msleep(ms);
+        }
+    }
+
+    pub fn millis() -> u64 {
+        unsafe {
+            return eadk_timing_millis();
+        }
+    }
+
+    extern "C" {
+        fn eadk_timing_usleep(us: u32);
+        fn eadk_timing_msleep(us: u32);
+        fn eadk_timing_millis() -> u64;
     }
 }
 
