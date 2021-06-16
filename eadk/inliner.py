@@ -19,11 +19,6 @@ def generate_linker_script(png_file, linker_script_file_name):
   png_reader = png.Reader(filename = png_file)
   width,height,data,info = png_reader.asRGBA8()
 
-  # Remove path prefix
-  png_file = os.path.basename(png_file)
-  # Remove path extension
-  png_file = os.path.splitext(png_file)[0]
-
   # Convert RGBA888 to RGB565
   dataRGB565 = []
   for row in data:

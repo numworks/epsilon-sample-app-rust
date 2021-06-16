@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import argparse
-import os
+import os.path
 import subprocess
 
 def load_elf(elf_file):
