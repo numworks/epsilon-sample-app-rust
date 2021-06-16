@@ -1,11 +1,11 @@
 #![no_std]
 #![no_main]
 
-mod eadk;
+pub mod eadk;
 
 #[allow(non_upper_case_globals)]
 #[no_mangle]
-pub static eadk_app_name: [u8; 6] = *b"Hello\0";
+pub static eadk_app_name: [u8; 10] = *b"HelloRust\0";
 
 fn random_u16() -> u16 {
     return eadk::random() as u16;

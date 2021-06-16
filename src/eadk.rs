@@ -35,6 +35,9 @@ pub mod display {
     use super::Color;
 
     pub fn push_rect(rect: Rect, pixels: &[Color]) {
+        unsafe {
+            eadk_display_push_rect(rect, pixels.as_ptr());
+        }
     }
 
     pub fn push_rect_uniform(rect: Rect, color: Color) {
@@ -45,6 +48,7 @@ pub mod display {
 
     extern "C" {
         fn eadk_display_push_rect_uniform(rect: Rect, color: Color);
+        fn eadk_display_push_rect(rect: Rect, color: *const Color);
     }
 }
 
