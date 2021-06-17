@@ -55,7 +55,7 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 | 0x18 | 0x04 | -          | Size of the entire app |
 | 0x00 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
-Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `cargo build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you'll call `cargo run`.
+Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `cargo build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `cargo run`.
 
 Due to the embedded nature of Epsilon, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
