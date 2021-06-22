@@ -51,9 +51,9 @@ Epsilon expects apps to follow a certain layout in memory. Namely, they should s
 | 0x08 | 0x04 | -          | Offset from start of the app to a NULL-terminated NFKD UTF-8 string containing the app name |
 | 0x0C | 0x04 | -          | Size of the icon data |
 | 0x10 | 0x04 | -          | Offset from start of the app to the actual icon data. This data should be the result of LZ4-compressing a sequence of 55x56 RGB565 pixels |
-| 0x14 | 0x04 | -          | Offset from start of the app to the entry point. |
+| 0x14 | 0x04 | -          | Offset from start of the app to the entry point |
 | 0x18 | 0x04 | -          | Size of the entire app |
-| 0x00 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
+| 0x22 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
 
 Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `cargo build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `cargo run`.
 
