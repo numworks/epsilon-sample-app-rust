@@ -23,6 +23,7 @@ You need to install an embedded ARM toolchain as well as the corresponding rust 
 
 ```shell
 brew install rustup numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
+rustup-init
 rustup target add thumbv7em-none-eabihf
 pip3 install lz4 pypng
 cargo build
