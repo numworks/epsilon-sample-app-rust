@@ -141,16 +141,19 @@ eadk_display_wait_for_vblank:
 @ u64 eadk_keyboard_state eadk_keyboard_scan()
 .global eadk_keyboard_scan
 eadk_keyboard_scan:
+  push {r0, r1, r4, r5, lr}
   movs r2, #0
   movs r3, #0
-  push {r0, r1, r4, lr}
-  mov r4, sp
+  mov r4, r0
+  mov r5, sp
   strd r2, r3, [sp]
-  mov r0, r4
+  mov r0, r5
   svc 32
-  ldrd r0, r1, [r4]
+  ldrd r2, r3, [r5]
+  mov r0, r4
+  strd r2, r3, [r4]
   add sp, #8
-  pop {r4, pc}
+  pop {r4, r5, pc}
 
 @@@ Timing
 
