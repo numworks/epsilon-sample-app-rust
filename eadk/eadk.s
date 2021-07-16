@@ -160,13 +160,15 @@ eadk_keyboard_scan:
 @ u64 eadk_timing_millis()
 .global eadk_timing_millis
 eadk_timing_millis:
+  movs r2, #0
+  movs r3, #0
   push {r0, r1, r4, lr}
   mov r4, sp
+  strd r2, r3, [sp]
   svc 46
-  str r0, [r4, #0]
+  str r0, [r4]
   str r1, [r4, #4]
-  movs r0, #0
-  movs r1, #0
+  ldrd r0, r1, [r4]
   add sp, #8
   pop {r4, pc}
 
