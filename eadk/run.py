@@ -37,6 +37,7 @@ def load_elf(elf_file, app_index = 0):
   if download_address >= external_apps_end_address:
     sys.stderr.write("No more space in external apps range")
     sys.exit(-1)
+  print("Download external app at address: " + str(hex(download_address)) + "\n")
   subprocess.check_output(["dfu-util", "-i", "0", "-a", "0", "-s", str(hex(download_address)) + ":leave", "-D", bin_file])
 
 parser = argparse.ArgumentParser(description="Load ELF file over USB")
