@@ -49,6 +49,7 @@ eadk_battery_voltage:
 
 @@@ Display
 
+@ point = u16 x, u16 y
 @ rect = u16 x, u16 y, u16 width, u16 heigt
 
 @ void eadk_display_push_rect(rect r, const u16 * pixels)
@@ -89,6 +90,23 @@ eadk_display_wait_for_vblank:
    mov r4, r0
    uxtb r0, r4
    pop {r4, pc}
+
+@ void eadk_display_draw_string(u32 text, point p, u8 large_font, u16 text_color, u16 background_color)
+.global eadk_display_draw_string
+eadk_display_draw_string:
+   push {r0, r1, r4, r5}
+   ldrh r5, [sp, #16]
+   str r1, [sp, #4]
+   mov r4, pc
+   lsrs r4, r4, #22
+   str r5, [sp, #16]
+   lsls r4, r4, #22
+   add r4, r4, #65536
+   ldr r4, [r4, #44]
+   mov ip, r4
+   add sp, sp, #8
+   pop {r4, r5}
+   bx ip
 
 @ Keyboard
 
@@ -185,6 +203,16 @@ eadk_timing_usleep:
   bx lr
 
 @@@ Misc
+
+@ void eadk_heap_range(u32 start_address, u32 end_address)
+.global eadk_heap_range
+eadk_heap_range:
+   mov r3, pc
+   lsrs r3, r3, #22
+   lsls r3, r3, #22
+   add r3, r3, #65536
+   ldr r3, [r3, #40]
+   bx r3
 
 @ u32 eadk_random()
 .global eadk_random
