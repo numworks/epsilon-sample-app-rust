@@ -58,7 +58,7 @@ eadk_display_pull_rect:
    sub sp, #8
    add r3, sp, #8
    stmdb r3, {r0, r1}
-   svc 16
+   svc 18
    add sp, #8
    bx lr
 
@@ -68,7 +68,7 @@ eadk_display_push_rect:
   sub sp, #8
   add r3, sp, #8
   stmdb r3, {r0, r1}
-  svc 17
+  svc 19
   add sp, #8
   bx lr
 
@@ -78,7 +78,7 @@ eadk_display_push_rect_uniform:
    sub sp, #8
    add r3, sp, #8
    stmdb r3, {r0, r1}
-   svc 18
+   svc 20
    add sp, #8
    bx lr
 
@@ -86,7 +86,7 @@ eadk_display_push_rect_uniform:
 .global eadk_display_wait_for_vblank
 eadk_display_wait_for_vblank:
    push {r4, lr}
-   svc 19
+   svc 21
    mov r4, r0
    uxtb r0, r4
    pop {r4, pc}
@@ -166,7 +166,7 @@ eadk_keyboard_scan:
   mov r5, sp
   strd r2, r3, [sp]
   mov r0, r5
-  svc 32
+  svc 34
   ldrd r2, r3, [r5]
   mov r0, r4
   strd r2, r3, [r4]
@@ -183,7 +183,7 @@ eadk_timing_millis:
   push {r0, r1, r4, lr}
   mov r4, sp
   strd r2, r3, [sp]
-  svc 46
+  svc 48
   str r0, [r4]
   str r1, [r4, #4]
   ldrd r0, r1, [r4]
@@ -193,13 +193,13 @@ eadk_timing_millis:
 @ void eadk_timing_msleep(u32 ms)
 .global eadk_timing_msleep
 eadk_timing_msleep:
-   svc 47
+   svc 49
    bx lr
 
 @ void eadk_timing_usleep(u32 us)
 .global eadk_timing_usleep
 eadk_timing_usleep:
-  svc 48
+  svc 50
   bx lr
 
 @@@ Misc
@@ -218,7 +218,7 @@ eadk_heap_range:
 .global eadk_random
 eadk_random:
    push {r4, lr}
-   svc 43
+   svc 45
    mov r4, r0
    mov r0, r4
    pop {r4, pc}
