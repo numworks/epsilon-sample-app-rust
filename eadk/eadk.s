@@ -204,9 +204,9 @@ eadk_timing_usleep:
 
 @@@ Misc
 
-@ void eadk_heap_range(u32 start_address, u32 end_address)
-.global eadk_heap_range
-eadk_heap_range:
+@ void eadk_app_sandbox_range(u32 start_address, u32 end_address)
+.global eadk_app_sandbox_range
+eadk_app_sandbox_range:
    mov r3, pc
    lsrs r3, r3, #22
    lsls r3, r3, #22
