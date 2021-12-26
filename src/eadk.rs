@@ -1,4 +1,5 @@
 #[repr(C)]
+#[derive(Clone,Copy)]
 pub struct Color {
     pub rgb565: u16,
 }
@@ -126,6 +127,12 @@ pub mod display {
 
     pub fn push_point(point: Point, color: Color) -> () {
         push_rect_uniform(Rect::new(point.x, point.y, 1, 1), color);
+    }
+
+    pub fn pull_point(point: Point) -> Color {
+        let mut color = [Color::new(0)];
+        pull_rect(Rect::new(point.x, point.y, 1, 1), &mut color);
+        color[0]
     }
 
     pub fn wait_for_vblank() {
