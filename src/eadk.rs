@@ -58,6 +58,14 @@ impl Rect {
     pub fn size(&self) -> u16 {
         self.width * self.height
     }
+
+    pub fn up_corner(&self) -> Point {
+        Point::new(self.x, self.y)
+    }
+    
+    pub fn down_corner(&self) -> Point {
+        Point::new(self.x + self.width, self.y + self.height)
+    }
 }
 
 #[repr(C)]
