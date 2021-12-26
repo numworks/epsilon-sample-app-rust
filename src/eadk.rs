@@ -104,23 +104,28 @@ pub mod backlight {
 pub mod display {
     use super::Color;
     use super::Rect;
+    use super::Point;
 
-    pub fn push_rect(rect: Rect, pixels: &[Color]) {
+    pub fn push_rect(rect: Rect, pixels: &[Color]) -> () {
         unsafe {
             eadk_display_push_rect(rect, pixels.as_ptr());
         }
     }
 
-    pub fn push_rect_uniform(rect: Rect, color: Color) {
+    pub fn push_rect_uniform(rect: Rect, color: Color) -> () {
         unsafe {
             eadk_display_push_rect_uniform(rect, color);
         }
     }
 
-    pub fn pull_rect(rect: Rect, pixels: &mut[Color]) {
+    pub fn pull_rect(rect: Rect, pixels: &mut[Color]) -> () {
         unsafe {
             eadk_display_pull_rect(rect, pixels.as_mut_ptr());
         }
+    }
+
+    pub fn push_point(point: Point, color: Color) -> () {
+        push_rect_uniform(Rect::new(point.x, point.y, 1, 1), color);
     }
 
     pub fn wait_for_vblank() {
