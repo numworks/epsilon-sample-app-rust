@@ -117,6 +117,12 @@ pub mod display {
         }
     }
 
+    pub fn pull_rect(rect: Rect, pixels: &mut[Color]) {
+        unsafe {
+            eadk_display_pull_rect(rect, pixels.as_mut_ptr());
+        }
+    }
+
     pub fn wait_for_vblank() {
         unsafe {
             eadk_display_wait_for_vblank();
