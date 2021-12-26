@@ -6,7 +6,7 @@
 
 @@@ Backlight
 
-@ u8 eadk_backlight_brightness()
+@ eadk_backlight_brightness() -> u8
 .global eadk_backlight_brightness
 eadk_backlight_brightness:
    push {r4, lr}
@@ -15,13 +15,13 @@ eadk_backlight_brightness:
    uxtb r0, r4
    pop {r4, pc}
 
-@ void eadk_backlight_set_brightness(u8 brightness)
+@ eadk_backlight_set_brightness(brightness: u8) -> ()
 .global eadk_backlight_set_brightness
 eadk_backlight_set_brightness:
    svc 2
    bx lr
 
-@ u8 eadk_battery_is_charging()
+@ eadk_battery_is_charging() -> u8
 .global eadk_battery_is_charging
 eadk_battery_is_charging:
    push {r4, lr}
@@ -30,7 +30,7 @@ eadk_battery_is_charging:
    uxtb r0, r4
    pop {r4, pc}
 
-@ u8 eadk_battery_level()
+@ eadk_battery_level() -> u8
 .global eadk_battery_level
 eadk_battery_level:
    push {r4, lr}
@@ -39,7 +39,7 @@ eadk_battery_level:
    uxtb r0, r4
    pop {r4, pc}
 
-@ f32 eadk_battery_voltage()
+@ eadk_battery_voltage() -> f32
 .global eadk_battery_voltage
 eadk_battery_voltage:
   svc 5
@@ -49,10 +49,11 @@ eadk_battery_voltage:
 
 @@@ Display
 
-@ point = u16 x, u16 y
-@ rect = u16 x, u16 y, u16 width, u16 heigt
+@ struct Point { x: u16, y: u16 }
+@ struct Rect { x: u16, y: u16, width: u16, height: u16 }
+@ type Color = u16
 
-@ void eadk_display_push_rect(rect r, const u16 * pixels)
+@ eadk_display_pull_rect(r: Rect, pixels: *const Color) -> ()
 .global eadk_display_pull_rect
 eadk_display_pull_rect:
    sub sp, #8
@@ -62,7 +63,7 @@ eadk_display_pull_rect:
    add sp, #8
    bx lr
 
-@ void eadk_display_push_rect_uniform(rect r, u16 color)
+@ eadk_display_push_rect(r: Rect, pixels: *const Color) -> ()
 .global eadk_display_push_rect
 eadk_display_push_rect:
   sub sp, #8
@@ -72,7 +73,7 @@ eadk_display_push_rect:
   add sp, #8
   bx lr
 
-@ void eadk_display_pull_rect(rect r, u16 * pixels)
+@ eadk_display_push_rect_uniform(r: Rect, color: Color) -> ()
 .global eadk_display_push_rect_uniform
 eadk_display_push_rect_uniform:
    sub sp, #8
@@ -82,7 +83,7 @@ eadk_display_push_rect_uniform:
    add sp, #8
    bx lr
 
-@ u8 eadk_display_wait_for_vblank()
+@ eadk_display_wait_for_vblank() -> u8
 .global eadk_display_wait_for_vblank
 eadk_display_wait_for_vblank:
    push {r4, lr}
@@ -91,7 +92,7 @@ eadk_display_wait_for_vblank:
    uxtb r0, r4
    pop {r4, pc}
 
-@ void eadk_display_draw_string(u32 text, point p, u8 large_font, u16 text_color, u16 background_color)
+@ eadk_display_draw_string(text: u32, p: Point, large_font: u8, text_color: Color, background_color: Color) -> ()
 .global eadk_display_draw_string
 eadk_display_draw_string:
    push {r0, r1, r4, r5}
@@ -156,7 +157,9 @@ eadk_display_draw_string:
 @ Ans = 51
 @ Exe = 52
 
-@ u64 eadk_keyboard_state eadk_keyboard_scan()
+@ type State = u64
+
+@ eadk_keyboard_state eadk_keyboard_scan() -> State
 .global eadk_keyboard_scan
 eadk_keyboard_scan:
   push {r0, r1, r4, r5, lr}
@@ -175,7 +178,7 @@ eadk_keyboard_scan:
 
 @@@ Timing
 
-@ u64 eadk_timing_millis()
+@ eadk_timing_millis() -> u64
 .global eadk_timing_millis
 eadk_timing_millis:
   movs r2, #0
@@ -190,13 +193,13 @@ eadk_timing_millis:
   add sp, #8
   pop {r4, pc}
 
-@ void eadk_timing_msleep(u32 ms)
+@ eadk_timing_msleep(ms: u32) -> ()
 .global eadk_timing_msleep
 eadk_timing_msleep:
    svc 49
    bx lr
 
-@ void eadk_timing_usleep(u32 us)
+@ eadk_timing_usleep(us: u32) -> ()
 .global eadk_timing_usleep
 eadk_timing_usleep:
   svc 50
@@ -204,7 +207,7 @@ eadk_timing_usleep:
 
 @@@ Misc
 
-@ void eadk_heap_range(u32 start_address, u32 end_address)
+@ eadk_heap_range(start_address: u32, end_address: u32) -> ()
 .global eadk_heap_range
 eadk_heap_range:
    mov r3, pc
