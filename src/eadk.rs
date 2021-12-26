@@ -180,6 +180,14 @@ pub mod timing {
     }
 }
 
+pub mod keyboard {
+    use super::State;
+
+    extern "C" {
+        fn eadk_keyboard_scan() -> State;
+    }
+}
+
 pub fn random() -> u32 {
     unsafe { return eadk_random() }
 }
