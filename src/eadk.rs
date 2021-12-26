@@ -1,5 +1,5 @@
 #[repr(C)]
-#[derive(Clone,Copy)]
+#[derive(Clone, Copy)]
 pub struct Color {
     pub rgb565: u16,
 }
@@ -52,7 +52,7 @@ impl Rect {
             x,
             y,
             width,
-            height
+            height,
         }
     }
 
@@ -63,7 +63,7 @@ impl Rect {
     pub fn up_corner(&self) -> Point {
         Point::new(self.x, self.y)
     }
-    
+
     pub fn down_corner(&self) -> Point {
         Point::new(self.x + self.width, self.y + self.height)
     }
@@ -77,11 +77,13 @@ pub struct Point {
 
 impl Point {
     pub fn new(x: u16, y: u16) -> Self {
-        Self {
-            x,
-            y
-        }
+        Self { x, y }
     }
+}
+
+#[repr(C)]
+pub struct State {
+    keyboard: u64,
 }
 
 pub mod backlight {
@@ -102,15 +104,10 @@ pub mod backlight {
     }
 }
 
-#[repr(C)]
-pub struct State {
-    keyboard: u64
-}
-
 pub mod display {
     use super::Color;
-    use super::Rect;
     use super::Point;
+    use super::Rect;
 
     pub fn push_rect(rect: Rect, pixels: &[Color]) -> () {
         unsafe {
@@ -124,7 +121,7 @@ pub mod display {
         }
     }
 
-    pub fn pull_rect(rect: Rect, pixels: &mut[Color]) -> () {
+    pub fn pull_rect(rect: Rect, pixels: &mut [Color]) -> () {
         unsafe {
             eadk_display_pull_rect(rect, pixels.as_mut_ptr());
         }
@@ -182,6 +179,10 @@ pub mod timing {
 
 pub mod keyboard {
     use super::State;
+
+    pub fn scan() -> State {
+        unsafe { eadk_keyboard_scan() }
+    }
 
     extern "C" {
         fn eadk_keyboard_scan() -> State;
