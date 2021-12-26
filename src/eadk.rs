@@ -13,6 +13,26 @@ impl Color {
             rgb565: ((r as u16 & 0b11111000) << 8) | ((g as u16 & 0b11111100) << 3) | (b as u16 >> 3)
         }
     }
+
+    pub fn white() -> Self {
+        Self::from_rgb(255, 255, 255)
+    }
+
+    pub fn black() -> Self {
+        Self::from_rgb(0, 0, 0)
+    }
+
+    pub fn red() -> Self {
+        Self::from_rgb(255, 0, 0)
+    }
+
+    pub fn green() -> Self {
+        Self::from_rgb(0, 255, 0)
+    }
+
+    pub fn blue() -> Self {
+        Self::from_rgb(0, 0, 255)
+    }
 }
 
 #[repr(C)]
