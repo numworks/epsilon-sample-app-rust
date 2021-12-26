@@ -126,6 +126,7 @@ pub mod display {
     extern "C" {
         fn eadk_display_push_rect_uniform(rect: Rect, color: Color);
         fn eadk_display_push_rect(rect: Rect, color: *const Color);
+        fn eadk_display_pull_rect(rect: Rect, color: *const Color);
         fn eadk_display_wait_for_vblank();
     }
 }
