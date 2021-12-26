@@ -54,6 +54,10 @@ impl Rect {
             height
         }
     }
+
+    pub fn size(&self) -> u16 {
+        self.width * self.height
+    }
 }
 
 pub mod backlight {
