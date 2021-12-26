@@ -7,6 +7,12 @@ impl Color {
     pub fn new(rgb565: u16) -> Self {
         Self { rgb565 }
     }
+
+    pub fn from_rgb(r: u8, g: u8, b: u8) -> Self {
+        Self {
+            rgb565: ((r as u16 & 0b11111000) << 8) | ((g as u16 & 0b11111100) << 3) | (b as u16 >> 3)
+        }
+    }
 }
 
 #[repr(C)]
