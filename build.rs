@@ -10,6 +10,11 @@ fn main() {
     println!("cargo:rerun-if-changed=src/icon.png");
     let output = Command::new("./eadk/inliner.py")
         .args(&["src/icon.png", "target/icon.ld"])
-        .output().expect("Failure to launch process");
-    assert!(output.status.success(), "{}", String::from_utf8_lossy(&output.stderr));
+        .output()
+        .expect("Failure to launch process");
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
 }
