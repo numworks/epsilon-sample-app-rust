@@ -3,6 +3,12 @@ pub struct Color {
     pub rgb565: u16
 }
 
+impl Color {
+    pub fn new(rgb565: u16) -> Self {
+        Self { rgb565 }
+    }
+}
+
 #[repr(C)]
 pub struct Rect {
     pub x: u16,
