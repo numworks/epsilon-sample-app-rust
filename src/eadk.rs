@@ -60,6 +60,12 @@ impl Rect {
     }
 }
 
+#[repr(C)]
+pub struct Point {
+    pub x: u16,
+    pub y: u16,
+}
+
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
         unsafe {
