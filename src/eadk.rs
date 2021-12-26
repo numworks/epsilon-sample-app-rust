@@ -45,6 +45,21 @@ pub struct Rect {
     pub height: u16,
 }
 
+impl Rect {
+    pub fn new(x: u16, y: u16, width: u16, height: u16) -> Self {
+        Self {
+            x,
+            y,
+            width,
+            height
+        }
+    }
+
+    pub fn size(&self) -> u16 {
+        self.width * self.height
+    }
+}
+
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
         unsafe {
