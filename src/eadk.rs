@@ -102,6 +102,11 @@ pub mod backlight {
     }
 }
 
+#[repr(C)]
+pub struct State {
+    keyboard: u64
+}
+
 pub mod display {
     use super::Color;
     use super::Rect;

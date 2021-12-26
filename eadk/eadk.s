@@ -157,7 +157,7 @@ eadk_display_draw_string:
 @ Ans = 51
 @ Exe = 52
 
-@ type State = u64
+@ struct State { keyboard: u64 }
 
 @ eadk_keyboard_state eadk_keyboard_scan() -> State
 .global eadk_keyboard_scan
