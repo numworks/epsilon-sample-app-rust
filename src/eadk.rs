@@ -1,5 +1,5 @@
 #[repr(C)]
-#[derive(Clone,Copy)]
+#[derive(Clone, Copy)]
 pub struct Color {
     pub rgb565: u16,
 }
@@ -52,7 +52,7 @@ impl Rect {
             x,
             y,
             width,
-            height
+            height,
         }
     }
 
@@ -63,7 +63,7 @@ impl Rect {
     pub fn up_corner(&self) -> Point {
         Point::new(self.x, self.y)
     }
-    
+
     pub fn down_corner(&self) -> Point {
         Point::new(self.x + self.width, self.y + self.height)
     }
@@ -77,10 +77,118 @@ pub struct Point {
 
 impl Point {
     pub fn new(x: u16, y: u16) -> Self {
-        Self {
-            x,
-            y
+        Self { x, y }
+    }
+}
+
+pub enum Key {
+    Left,
+    Up,
+    Down,
+    Right,
+    OK,
+    Back,
+    Home,
+    Shift,
+    Alpha,
+    XNT,
+    Var,
+    Toolbox,
+    Backspace,
+    Exp,
+    Ln,
+    Log,
+    Imaginary,
+    Comma,
+    Power,
+    Sine,
+    Cosine,
+    Tangent,
+    Pi,
+    Sqrt,
+    Square,
+    Seven,
+    Eight,
+    Nine,
+    LeftParenthesis,
+    RightParenthesis,
+    Four,
+    Five,
+    Six,
+    Multiplication,
+    Division,
+    One,
+    Two,
+    Three,
+    Plus,
+    Minus,
+    Zero,
+    Dot,
+    EE,
+    Ans,
+    EXE,
+}
+
+impl Key {
+    pub fn into_u64(self) -> u64 {
+        match self {
+            Self::Left => 0,
+            Self::Up => 1,
+            Self::Down => 2,
+            Self::Right => 3,
+            Self::OK => 4,
+            Self::Back => 5,
+            Self::Home => 6,
+            Self::Shift => 12,
+            Self::Alpha => 13,
+            Self::XNT => 14,
+            Self::Var => 15,
+            Self::Toolbox => 16,
+            Self::Backspace => 17,
+            Self::Exp => 18,
+            Self::Ln => 19,
+            Self::Log => 20,
+            Self::Imaginary => 21,
+            Self::Comma => 22,
+            Self::Power => 23,
+            Self::Sine => 24,
+            Self::Cosine => 25,
+            Self::Tangent => 26,
+            Self::Pi => 27,
+            Self::Sqrt => 28,
+            Self::Square => 29,
+            Self::Seven => 30,
+            Self::Eight => 31,
+            Self::Nine => 32,
+            Self::LeftParenthesis => 33,
+            Self::RightParenthesis => 34,
+            Self::Four => 36,
+            Self::Five => 37,
+            Self::Six => 38,
+            Self::Multiplication => 39,
+            Self::Division => 40,
+            Self::One => 42,
+            Self::Two => 43,
+            Self::Three => 44,
+            Self::Plus => 45,
+            Self::Minus => 46,
+            Self::Zero => 48,
+            Self::Dot => 49,
+            Self::EE => 50,
+            Self::Ans => 51,
+            Self::EXE => 52,
         }
+    }
+}
+
+#[repr(C)]
+pub struct State {
+    keyboard: u64,
+}
+
+impl State {
+    pub fn is_key_down(&self, key: Key) -> bool {
+        ((self.keyboard >> key.into_u64()) & 1) != 0
     }
 }
 
@@ -104,8 +212,8 @@ pub mod backlight {
 
 pub mod display {
     use super::Color;
-    use super::Rect;
     use super::Point;
+    use super::Rect;
 
     pub fn push_rect(rect: Rect, pixels: &[Color]) -> () {
         unsafe {
@@ -119,7 +227,7 @@ pub mod display {
         }
     }
 
-    pub fn pull_rect(rect: Rect, pixels: &mut[Color]) -> () {
+    pub fn pull_rect(rect: Rect, pixels: &mut [Color]) -> () {
         unsafe {
             eadk_display_pull_rect(rect, pixels.as_mut_ptr());
         }
@@ -172,6 +280,18 @@ pub mod timing {
         fn eadk_timing_usleep(us: u32);
         fn eadk_timing_msleep(us: u32);
         fn eadk_timing_millis() -> u64;
+    }
+}
+
+pub mod keyboard {
+    use super::State;
+
+    pub fn scan() -> State {
+        unsafe { eadk_keyboard_scan() }
+    }
+
+    extern "C" {
+        fn eadk_keyboard_scan() -> State;
     }
 }
 
