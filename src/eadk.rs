@@ -1,3 +1,6 @@
+pub const SCREEN_WIDTH: u16 = 320;
+pub const SCREEN_HEIGHT: u16 = 240;
+
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct Color {
