@@ -186,6 +186,12 @@ pub struct State {
     keyboard: u64,
 }
 
+impl State {
+    pub fn is_key_down(&self, key: Key) -> bool {
+        ((self.keyboard >> key.into_u64()) & 1) != 0
+    }
+}
+
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
         unsafe {
