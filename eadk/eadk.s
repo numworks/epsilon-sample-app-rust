@@ -102,7 +102,7 @@ eadk_display_draw_string:
    str r5, [sp, #16]
    lsls r4, r4, #22
    add r4, r4, #65536
-   ldr r4, [r4, #40]
+   ldr r4, [r4, #48]
    mov ip, r4
    add sp, sp, #8
    pop {r4, r5}

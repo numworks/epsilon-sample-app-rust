@@ -15,7 +15,7 @@ def parse_slot_info(slot_info_file):
 
 def parse_userland_header(userland_header_file):
   data = open(userland_header_file, "rb").read()
-  header_pattern = re.compile(b'\xfe\xed\xc0\xde.{8}.{4}.{4}(.{4})(.{4})\xfe\xed\xc0\xde', flags=re.MULTILINE)
+  header_pattern = re.compile(b'\xfe\xed\xc0\xde.{8}.{4}.{4}(.{4})(.{4})(.{4})(.{4})\xfe\xed\xc0\xde', flags=re.MULTILINE)
   result = header_pattern.search(data)
   external_apps_start_address = int.from_bytes(result.group(1), "little")
   external_apps_end_address = int.from_bytes(result.group(2), "little")
@@ -28,7 +28,7 @@ def load_elf(elf_file, app_index = 0):
   subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(ram_address)) + ":16:force", "-U", "slot_info.bin"])
   _,userland_header_address = parse_slot_info("slot_info.bin")
   subprocess.check_output(["rm", "slot_info.bin"])
-  subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(userland_header_address)) + ":32:force", "-U", "userland_header.bin"])
+  subprocess.check_output(["dfu-util", "-a", "0", "-s", str(hex(userland_header_address)) + ":40:force", "-U", "userland_header.bin"])
   external_apps_start_address,external_apps_end_address = parse_userland_header("userland_header.bin")
   subprocess.check_output(["rm", "userland_header.bin"])
   external_apps_sector_size = 64 * 1024
