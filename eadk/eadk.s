@@ -102,7 +102,7 @@ eadk_display_draw_string:
    str r5, [sp, #16]
    lsls r4, r4, #22
    add r4, r4, #65536
-   ldr r4, [r4, #44]
+   ldr r4, [r4, #40]
    mov ip, r4
    add sp, sp, #8
    pop {r4, r5}
@@ -203,16 +203,6 @@ eadk_timing_usleep:
   bx lr
 
 @@@ Misc
-
-@ void eadk_app_sandbox_range(u32 start_address, u32 end_address)
-.global eadk_app_sandbox_range
-eadk_app_sandbox_range:
-   mov r3, pc
-   lsrs r3, r3, #22
-   lsls r3, r3, #22
-   add r3, r3, #65536
-   ldr r3, [r3, #40]
-   bx r3
 
 @ u32 eadk_random()
 .global eadk_random
