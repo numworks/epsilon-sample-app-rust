@@ -159,19 +159,17 @@ eadk_display_draw_string:
 @ u64 eadk_keyboard_state eadk_keyboard_scan()
 .global eadk_keyboard_scan
 eadk_keyboard_scan:
-  push {r0, r1, r4, r5, lr}
   movs r2, #0
   movs r3, #0
-  mov r4, r0
-  mov r5, sp
-  strd r2, r3, [sp]
-  mov r0, r5
-  svc 34
-  ldrd r2, r3, [r5]
-  mov r0, r4
-  strd r2, r3, [r4]
-  add sp, #8
-  pop {r4, r5, pc}
+  push {r0, r1, r4, lr}
+  mov r4, sp
+  strd r2, [sp]
+  svc #34
+  str r0, [r4]
+  str r1, [r4,#4]
+  ldrd r0, [r4]
+  add sp, sp, #8
+  pop {r4, pc}
 
 @@@ Timing
 
@@ -212,3 +210,4 @@ eadk_random:
    mov r4, r0
    mov r0, r4
    pop {r4, pc}
+
