@@ -19,13 +19,13 @@ fn eadk_main() {
 
 ## Build the app
 
-You need to install an embedded ARM toolchain as well as the corresponding rust target and a couple Python modules.
+You need to install an embedded ARM rust compiler as well as [nwlink](https://www.npmjs.com/package/nwlink).
 
 ```shell
-brew install rustup numworks/tap/arm-none-eabi-gcc # Or equivalent on your OS
+brew install rustup node # Or equivalent on your OS
 rustup-init
 rustup target add thumbv7em-none-eabihf
-pip3 install lz4 pypng
+npm install -g nwlink
 cargo build
 ```
 
@@ -34,29 +34,13 @@ cargo build
 The app is sent over to the calculator using the DFU protocol over USB.
 
 ```shell
-brew install dfu-util # Or equivalent on your OS
 # Now connect your NumWorks calculator to your computer using the USB cable
 cargo run
 ```
 
 ## Notes
 
-The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com. Note that at the moment Epsilon 16 is in beta, so you'll need to register as [a beta tester](https://my.numworks.com/user/beta).
-
-Epsilon expects apps to follow a certain layout in memory. Namely, they should start with the following header:
-
-|Offset| Size | Value      | Description                  |
-|------|------|------------|------------------------------|
-| 0x00 | 0x04 | 0xDEC0BEBA | Magic start-of-header marker |
-| 0x04 | 0x04 | 0x00000000 | API Level |
-| 0x08 | 0x04 | -          | Offset from start of the app to a NULL-terminated NFKD UTF-8 string containing the app name |
-| 0x0C | 0x04 | -          | Size of the icon data |
-| 0x10 | 0x04 | -          | Offset from start of the app to the actual icon data. This data should be the result of LZ4-compressing a sequence of 55x56 RGB565 pixels |
-| 0x14 | 0x04 | -          | Offset from start of the app to the entry point |
-| 0x18 | 0x04 | -          | Size of the entire app |
-| 0x22 | 0x04 | 0xDEC0BEBA | Magic end-of-header marker |
-
-Generating the appropriate header is taken care of by a [linker script](/eadk/eadk.ld) when you run `cargo build`. Once the corresponding binary is built on your computer, you will need to install it at address `0x90350000` in your calculator's Flash memory. The included [run.py](/eadk/run.py) script will take care of this for you when you call `cargo run`.
+The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com.
 
 Due to the embedded nature of Epsilon, the Rust app has to be `no_std`. The interface that an app can use to interact with the OS is essentially a short list of system calls. Feel free to browse the [code of Epsilon](http://github.com/numworks/epsilon) itself if you want to get an in-depth look.
 
