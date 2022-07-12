@@ -1,6 +1,6 @@
 [target.thumbv7em-none-eabihf]
-runner = 'eadk/run.py'
-rustflags = ["-C", "link-arg=-Teadk/eadk.ld"]
+runner = 'nwlink install-nwa'
+rustflags = ["-C", "link-arg=--relocatable"]
 
 [build]
 target = "thumbv7em-none-eabihf"
