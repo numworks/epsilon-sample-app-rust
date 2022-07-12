@@ -12,10 +12,8 @@ jobs:
         with:
           toolchain: stable
           target: thumbv7em-none-eabihf
-      - name: Install arm-none-aeabi toolchain
-        uses: numworks/setup-arm-toolchain@2020-q2
-      - name: Install build-time Python dependencies
-        run: pip3 install lz4 pypng
+      - name: Install nwlink
+        run: npm install -g nwlink
       - name: Run cargo build
         uses: actions-rs/cargo@v1
         with:
