@@ -1,6 +1,6 @@
 [target.thumbv7em-none-eabihf]
 runner = 'nwlink install-nwa'
-rustflags = ["-C", "link-arg=--relocatable"]
+rustflags = ["-C", "link-arg=-Tsrc/eadk.ld", "-C", "link-arg=--relocatable"]
 
 [build]
 target = "thumbv7em-none-eabihf"
