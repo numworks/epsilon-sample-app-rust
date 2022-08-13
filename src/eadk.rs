@@ -63,6 +63,21 @@ impl Point {
     }
 }
 
+#[repr(C)]
+pub struct State(u64);
+
+impl State {
+    #[must_use]
+    pub fn new(state: u64) -> Self {
+        Self(state)
+    }
+
+    #[must_use]
+    pub fn key_down(&self, k: u32) -> bool {
+        self.0.wrapping_shr(k) & 1 != 0
+    }
+}
+
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
         unsafe {
@@ -127,6 +142,19 @@ pub mod display {
             background_color: Color,
         );
         fn eadk_display_wait_for_vblank();
+    }
+}
+
+pub mod keyboard {
+    use super::State;
+
+    #[must_use]
+    pub fn scan() -> State {
+        unsafe { State::new(eadk_keyboard_scan()) }
+    }
+
+    extern "C" {
+        fn eadk_keyboard_scan() -> u64;
     }
 }
 
