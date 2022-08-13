@@ -50,6 +50,17 @@ pub struct Rect {
     pub height: u16,
 }
 
+impl Rect {
+    pub const fn new(x: u16, y: u16, width: u16, height: u16) -> Self {
+        Self {
+            x,
+            y,
+            width,
+            height,
+        }
+    }
+}
+
 #[repr(C)]
 #[derive(Clone, Copy)]
 pub struct Point {
