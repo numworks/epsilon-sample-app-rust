@@ -1,6 +1,7 @@
 use core::f32::consts::PI;
 
 #[repr(C)]
+#[derive(Clone, Copy)]
 pub struct Color {
     pub rgb565: u16,
 }
@@ -41,6 +42,7 @@ impl Color {
 }
 
 #[repr(C)]
+#[derive(Clone, Copy)]
 pub struct Rect {
     pub x: u16,
     pub y: u16,
@@ -49,6 +51,7 @@ pub struct Rect {
 }
 
 #[repr(C)]
+#[derive(Clone, Copy)]
 pub struct Point {
     pub x: u16,
     pub y: u16,
