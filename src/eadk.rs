@@ -48,6 +48,12 @@ pub struct Rect {
     pub height: u16,
 }
 
+#[repr(C)]
+pub struct Point {
+    pub x: u16,
+    pub y: u16,
+}
+
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
         unsafe {
@@ -68,6 +74,7 @@ pub mod backlight {
 
 pub mod display {
     use super::Color;
+    use super::Point;
     use super::Rect;
 
     pub fn push_rect(rect: Rect, pixels: &[Color]) {
@@ -82,6 +89,18 @@ pub mod display {
         }
     }
 
+    pub fn draw_string(
+        string: &str,
+        pos: Point,
+        large: bool,
+        text_color: Color,
+        background_color: Color,
+    ) {
+        unsafe {
+            eadk_display_draw_string(string.as_ptr(), pos, large, text_color, background_color);
+        }
+    }
+
     pub fn wait_for_vblank() {
         unsafe {
             eadk_display_wait_for_vblank();
@@ -91,6 +110,13 @@ pub mod display {
     extern "C" {
         fn eadk_display_push_rect_uniform(rect: Rect, color: Color);
         fn eadk_display_push_rect(rect: Rect, color: *const Color);
+        fn eadk_display_draw_string(
+            text: *const u8,
+            pos: Point,
+            large: bool,
+            text_color: Color,
+            background_color: Color,
+        );
         fn eadk_display_wait_for_vblank();
     }
 }
