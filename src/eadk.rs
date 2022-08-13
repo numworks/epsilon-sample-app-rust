@@ -77,6 +77,53 @@ impl State {
         self.0.wrapping_shr(k) & 1 != 0
     }
 }
+pub mod key {
+    pub const LEFT: u32 = 0;
+    pub const UP: u32 = 1;
+    pub const DOWN: u32 = 2;
+    pub const RIGHT: u32 = 3;
+    pub const OK: u32 = 4;
+    pub const BACK: u32 = 5;
+    pub const HOME: u32 = 6;
+    pub const SHIFT: u32 = 12;
+    pub const ALPHA: u32 = 13;
+    pub const XNT: u32 = 14;
+    pub const VAR: u32 = 15;
+    pub const TOOLBOX: u32 = 16;
+    pub const BACKSPACE: u32 = 17;
+    pub const EXP: u32 = 18;
+    pub const LN: u32 = 19;
+    pub const LOG: u32 = 20;
+    pub const IMAGINARY: u32 = 21;
+    pub const COMMA: u32 = 22;
+    pub const POWER: u32 = 23;
+    pub const SINE: u32 = 24;
+    pub const COSINE: u32 = 25;
+    pub const TANGENT: u32 = 26;
+    pub const PI: u32 = 27;
+    pub const SQRT: u32 = 28;
+    pub const SQUARE: u32 = 29;
+    pub const SEVEN: u32 = 30;
+    pub const EIGHT: u32 = 31;
+    pub const NINE: u32 = 32;
+    pub const LEFTPARENTHESIS: u32 = 33;
+    pub const RIGHTPARENTHESIS: u32 = 34;
+    pub const FOUR: u32 = 36;
+    pub const FIVE: u32 = 37;
+    pub const SIX: u32 = 38;
+    pub const MULTIPLICATION: u32 = 39;
+    pub const DIVISION: u32 = 40;
+    pub const ONE: u32 = 42;
+    pub const TWO: u32 = 43;
+    pub const THREE: u32 = 44;
+    pub const PLUS: u32 = 45;
+    pub const MINUS: u32 = 46;
+    pub const ZERO: u32 = 48;
+    pub const DOT: u32 = 49;
+    pub const EE: u32 = 50;
+    pub const ANS: u32 = 51;
+    pub const EXE: u32 = 52;
+}
 
 pub mod backlight {
     pub fn set_brightness(brightness: u8) {
