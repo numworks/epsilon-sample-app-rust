@@ -6,6 +6,12 @@ pub struct Color {
 }
 
 impl Color {
+    pub const BLACK: Color = Self::from_rgb888(0, 0, 0);
+    pub const WHITE: Color = Self::from_rgb888(255, 255, 255);
+    pub const RED: Color = Self::from_rgb888(255, 0, 0);
+    pub const GREEN: Color = Self::from_rgb888(0, 255, 0);
+    pub const BLUE: Color = Self::from_rgb888(0, 0, 255);
+
     #[must_use]
     pub const fn new(rgb565: u16) -> Self {
         Self { rgb565 }
