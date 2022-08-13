@@ -54,6 +54,8 @@ pub struct Rect {
 }
 
 impl Rect {
+    pub const SCREEN: Self = Self::new(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
     pub const fn new(x: u16, y: u16, width: u16, height: u16) -> Self {
         Self {
             x,
