@@ -1,6 +1,37 @@
+use core::f32::consts::PI;
+
 #[repr(C)]
 pub struct Color {
-    pub rgb565: u16
+    pub rgb565: u16,
+}
+
+impl Color {
+    #[must_use]
+    pub const fn new(rgb565: u16) -> Self {
+        Self { rgb565 }
+    }
+
+    #[must_use]
+    pub const fn from_rgb888(r: u8, g: u8, b: u8) -> Self {
+        Self {
+            rgb565: ((r as u16 & 0b1111_1000) << 8)
+                | ((g as u16 & 0b1111_1100) << 3)
+                | (b as u16 >> 3),
+        }
+    }
+
+    #[must_use]
+    pub fn from_hsv(hue: f32, saturation: f32, value: f32) -> Self {
+        let f = |n: f32| {
+            let k: f32 = (n + hue / PI * 3.) % 6.;
+            value * (1. - saturation * k.min(4. - k).min(1.).max(0.))
+        };
+        Color::from_rgb888(
+            (f(5.) * 255.) as u8,
+            (f(3.) * 255.) as u8,
+            (f(1.) * 255.) as u8,
+        )
+    }
 }
 
 #[repr(C)]
@@ -8,7 +39,7 @@ pub struct Rect {
     pub x: u16,
     pub y: u16,
     pub width: u16,
-    pub height: u16
+    pub height: u16,
 }
 
 pub mod backlight {
@@ -27,12 +58,11 @@ pub mod backlight {
         fn eadk_backlight_set_brightness(brightness: u8);
         fn eadk_backlight_brightness() -> u8;
     }
-
 }
 
 pub mod display {
-    use super::Rect;
     use super::Color;
+    use super::Rect;
 
     pub fn push_rect(rect: Rect, pixels: &[Color]) {
         unsafe {
@@ -86,9 +116,7 @@ pub mod timing {
 }
 
 pub fn random() -> u32 {
-    unsafe {
-        return eadk_random()
-    }
+    unsafe { return eadk_random() }
 }
 
 extern "C" {
