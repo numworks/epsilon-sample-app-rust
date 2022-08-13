@@ -262,5 +262,14 @@ use core::panic::PanicInfo;
 
 #[panic_handler]
 fn panic(_panic: &PanicInfo<'_>) -> ! {
-    loop {} // FIXME: Do something better. Exit the app maybe?
+    display::push_rect_uniform(Rect::SCREEN, Color::RED);
+    display::draw_string(
+        "Error !\0",
+        Point::new(10, 10),
+        true,
+        Color::BLACK,
+        Color::WHITE,
+    );
+
+    loop {}
 }
