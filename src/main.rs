@@ -26,8 +26,15 @@ fn random_coordinate() -> u16 {
 #[no_mangle]
 fn _eadk_main() {
     for _ in 0..100 {
-        let c = eadk::Color { rgb565: random_u16() };
-        let r = eadk::Rect { x: random_coordinate(), y: random_coordinate(), width: random_coordinate(), height: random_coordinate() };
+        let c = eadk::Color {
+            rgb565: random_u16(),
+        };
+        let r = eadk::Rect {
+            x: random_coordinate(),
+            y: random_coordinate(),
+            width: random_coordinate(),
+            height: random_coordinate(),
+        };
         eadk::display::push_rect_uniform(r, c);
     }
     loop {}

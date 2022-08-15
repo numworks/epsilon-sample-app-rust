@@ -1,0 +1,12 @@
+[tasks.build]
+command = "cargo"
+args = ["build", "--release"]
+
+[tasks.run]
+command = "cargo"
+args = ["run", "--release"]
+
+[tasks.pack]
+dependencies = ["build"]
+command = "cp"
+args = ["target/thumbv7em-none-eabihf/release/${CARGO_MAKE_CRATE_NAME}", "build/app.nwa"]
