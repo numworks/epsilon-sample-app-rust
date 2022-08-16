@@ -52,6 +52,12 @@ The app is sent over to the calculator using the DFU protocol over USB.
 cargo make run
 ```
 
+## Cargo-generate
+This repo can be used as a template for [cargo-generate](https://github.com/cargo-generate/cargo-generate):
+```shell
+cargo generate --git https://github.com/Adi-df/epsilon-sample-app-rust.git --branch cargo-generate
+```
+
 ## Notes
 
 The NumWorks calculator runs [Epsilon](http://github.com/numworks/epsilon), a tailor-made calculator operating system. Starting from version 16, Epsilon allows installing custom binary apps. To run this sample app, make sure your calculator is up-to-date by visiting https://my.numworks.com.
