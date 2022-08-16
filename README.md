@@ -1,7 +1,5 @@
 # Sample Rust app for Epsilon
 
-[![Build](https://github.com/numworks/epsilon-sample-app-rust/actions/workflows/build.yml/badge.svg)](https://github.com/numworks/epsilon-sample-app-rust/actions/workflows/build.yml)
-
 <img src="/doc/screenshots.gif?raw=true" alt="Sample Rust app for the NumWorks graphing calculator" width="300" align="right">
 
 This is a sample [Rust](https://www.rust-lang.org) app to use on a [NumWorks calculator](https://www.numworks.com). Yes, you can now use Rust to write code for a graphing calculator!
@@ -19,15 +17,34 @@ fn eadk_main() {
 
 ## Build the app
 
-You need to install an embedded ARM rust compiler as well as [nwlink](https://www.npmjs.com/package/nwlink).
-
+First install the rust installer [rustup](https://rustup.rs/).
+Then install an embedded ARM toolchain:
 ```shell
-brew install rustup node # Or equivalent on your OS
 rustup-init
 rustup target add thumbv7em-none-eabihf
+cargo install cargo-make
 npm install -g nwlink
-cargo build
+cargo make build
 ```
+
+Install [cargo-make](https://sagiegurari.github.io/cargo-make/) the build tool used to automate tasks.
+```shell
+cargo install --force cargo-make  
+```
+
+You must then install [nodejs](https://nodejs.org/en/) and [nwlink](https://www.npmjs.com/package/nwlink) the numworks tool used to load the app to the calculator.
+Numworks use a tool called [nwlink](https://www.npmjs.com/package/nwlink) to load apps to the calculator.
+This tool requires [nodejs] to run, if you are a Linux/macOS user, take a look at [nvm](https://github.com/nvm-sh/nvm).
+After nodejs, install nwlink:
+```shell
+npm install -g nwlink
+```
+
+Finally, build using cargo-make:
+```shell
+cargo make build
+```
+
 
 ## Run the app
 
@@ -35,7 +52,7 @@ The app is sent over to the calculator using the DFU protocol over USB.
 
 ```shell
 # Now connect your NumWorks calculator to your computer using the USB cable
-cargo run
+cargo make run
 ```
 
 ## Notes
