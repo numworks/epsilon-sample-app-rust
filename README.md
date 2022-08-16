@@ -22,9 +22,6 @@ Then install an embedded ARM toolchain:
 ```shell
 rustup-init
 rustup target add thumbv7em-none-eabihf
-cargo install cargo-make
-npm install -g nwlink
-cargo make build
 ```
 
 Install [cargo-make](https://sagiegurari.github.io/cargo-make/) the build tool used to automate tasks.
