@@ -19,13 +19,12 @@ fn eadk_main() {
 
 ## Build the app
 
-You need to install an embedded ARM rust compiler as well as [nwlink](https://www.npmjs.com/package/nwlink).
+To build this sample app, you will need to install an embedded ARM rust compiler as well as [Node.js](https://nodejs.org/en/). The SDK for Epsilon apps is shipped as an npm module called [nwlink](https://www.npmjs.com/package/nwlink) that will automatically be installed at compile time.
 
 ```shell
 brew install rustup node # Or equivalent on your OS
 rustup-init
 rustup target add thumbv7em-none-eabihf
-npm install -g nwlink
 cargo build
 ```
 
